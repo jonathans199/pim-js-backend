@@ -1,0 +1,18 @@
+node_modules
+
+# tsc build
+dist
+build
+
+# env variables
+.mongo_data
+.env
+
+# yarn items 
+yarn.lock
+yarn-error.log
+
+# npm items
+package-lock.json
+
+veerii-mongo.cer

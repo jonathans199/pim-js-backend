@@ -15,14 +15,7 @@ export const createUser: RequestHandler = async (req, res) => {
       if (!duplicateEmail) {
         const newUser = {
           user_id: createRandomId(),
-          email: email,
-          type: 'new',
-          username: username,
-          first_name: first_name,
-          last_name: last_name,
-          password: password,
-          department: department,
-          phone: phone,
+          ...req.body,
         }
         const hashedPassword = await bcrypt.hash(password, 10)
         const userCreated = await User.create({
@@ -58,15 +51,17 @@ export const login: RequestHandler = async (req, res) => {
 
       jwt.verify(accessToken, process.env.PRIVATE_KEY as string, async (err, decoded) => {
         if (decoded) {
+          console.log(decoded)
           const { user_id }: any = decoded
+
           const log = {
             user_id: user_id,
             model: 'user',
-            event_type: 'user',
+            event_type: 'login',
             item_id: user_id,
           }
 
-          addLog(log)
+          await addLog(log)
           res.send({ ...(decoded as any), accessToken: accessToken })
         }
       })
@@ -90,14 +85,14 @@ export const updateUser: RequestHandler = async (req, res) => {
     }
 
     try {
-      const realtorUpdated = await User.findOneAndUpdate({ realtorId: req.body.realtorId }, { $set: userDetails })
+      const realtorUpdated = await User.findOneAndUpdate({ user_id: req.body.user_id }, { $set: userDetails })
 
       if (realtorUpdated) {
         const log = {
-          user_id: req.body.realtorId,
+          user_id: req.body.user_id,
           model: 'realtor',
           event_type: 'update',
-          item_id: req.body.realtorId,
+          item_id: req.body.user_id,
         }
 
         addLog(log)

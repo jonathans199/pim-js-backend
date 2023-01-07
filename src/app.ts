@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true }))
 app.listen(process.env.PORT || 4040, () => console.log(`port running on ${process.env.PORT}`))
 
 import userRoutes from './routes/userRoutes.js'
-app.use('/api/user', userRoutes)
+app.use('/api/users', userRoutes)
 
 import propertyRoutes from './routes/productRoutes.js'
 app.use('/api/products', propertyRoutes)

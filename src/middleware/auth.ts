@@ -16,8 +16,8 @@ export const auth: RequestHandler = (req, res, next) => {
     }
 
     if (decoded) {
-      const { realtorId }: any = decoded
-      const realtorFound = await Realtor.findOne({ realtorId: realtorId })
+      const { user_id }: any = decoded
+      const realtorFound = await Realtor.findOne({ user_id: user_id })
       if (realtorFound) next()
     }
   })

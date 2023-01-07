@@ -10,7 +10,7 @@ interface Tlog {
 }
 
 export const addLog = async (args: Tlog) => {
-  await Log.create({ user_id: args.user_id, model: args.model, eventType: args.event_type, itemId: args.item_id })
+  await Log.create({ user_id: args.user_id, model: args.model, event_type: args.event_type, item_id: args.item_id })
 }
 
 export const getLogs: RequestHandler = async (req, res) => {

@@ -13,7 +13,8 @@ export const addProduct: RequestHandler = async (req, res) => {
       }
 
       const newProduct = {
-        product_id: 'p' + createRandomId(),
+        product_id: createRandomId(),
+        created_by: req.body.created_by.user_id,
         ...req.body,
       }
 
@@ -21,12 +22,12 @@ export const addProduct: RequestHandler = async (req, res) => {
 
       if (productCreated) {
         const log = {
-          user_id: req.body.realtorId,
+          user_id: req.body.created_by.user_id,
           model: 'product',
           event_type: 'new',
           item_id: productCreated.product_id,
         }
-        addLog(log)
+        await addLog(log)
         res.send('product created')
       } else {
         res.status(401).json({ error: 'product was not created' })
@@ -82,7 +83,7 @@ export const disableProduct: RequestHandler = async (req, res) => {
 
     if (productUpdated) {
       const log = {
-        user_id: req.body.realtorId,
+        user_id: req.body.user_id,
         model: 'product',
         event_type: 'disabled',
         item_id: productUpdated.product_id,

@@ -4,9 +4,9 @@ import { addProduct, disableProduct, getProducts, updateProduct } from '../contr
 
 const router = Router()
 
-router.route('/new').post(auth, addProduct)
+router.route('/create').post(auth, addProduct)
 router.route('/update').patch(auth, updateProduct)
-router.route('/disable/:ProductId').patch(auth, disableProduct)
+router.route('/disable/:product_id').patch(auth, disableProduct)
 router.route('/').get(auth, getProducts)
 
 export default router

@@ -1,4 +1,4 @@
-# Veerii Backend
+# PIM-JS Backend
 
 ## Introduction
 
